@@ -18,3 +18,11 @@ Here are the steps I've taken so far:
     if you cloned a project with a requirements.txt file, you can run
         pip install -r requirements.txt
     which will go through and install all the packages listed in requirements.txt
+
+6. Add our configuration setup so that the app knows how to run
+    Three files control the setup of our application: config.py (and by extension the .env file), __init__.py, and run.py
+
+    Set up variables in config.py
+        matching variables as needed in .env
+    
+    Set up __init__.py file
