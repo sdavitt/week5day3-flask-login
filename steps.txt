@@ -1,0 +1,20 @@
+Here are the steps I've taken so far:
+
+1. Created my file structure
+2. Create my virtual environments - virtual environments are now a standard part of python
+    python -m venv <name of my new environment>
+3. Activate my virtual environment (run the executable activate)
+    pc: venv\scripts\activate
+    mac/linux: source venv/bin/activate
+4. I can install flask!
+    All of our packages are gonna be installed thru pip -> so once we're inside our virtual environment, we can use pip commands
+
+    pip install flask
+
+5. Every project should have a requirements.txt file -> this file shows other developers what packages this project requires to work
+    to initially make and/or update your requirements.txt file
+        pip freeze > requirements.txt
+    
+    if you cloned a project with a requirements.txt file, you can run
+        pip install -r requirements.txt
+    which will go through and install all the packages listed in requirements.txt
