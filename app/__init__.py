@@ -6,6 +6,11 @@ from config import Config
 from .site.routes import site
 from .authentication.routes import auth
 
+# import our database stuff
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from .models import db
+
 
 # define our application as instance of the Flask object
 app = Flask(__name__)
@@ -16,3 +21,11 @@ app.register_blueprint(auth)
 
 # configure our application based on the Config class from the config.py file
 app.config.from_object(Config)
+
+#configure our database
+db.init_app(app)
+
+migrate = Migrate(app, db)
+
+# bring in our models (importing the models.py file)
+from . import models

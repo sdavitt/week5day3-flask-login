@@ -26,3 +26,12 @@ Here are the steps I've taken so far:
         matching variables as needed in .env
     
     Set up __init__.py file
+
+
+
+#### Database stuff below Here
+# Database packages: SQLalchemy, flask-migrate, psycopg2 (pyscopg2-binary for mac/linux)
+# Might also need some python modules depending on what you want in your database: commonly used - datetime, uuid
+
+# Set DATABASE_URL in .env file and link in config
+# initialize, migrate, and upgrade our database to match our models
