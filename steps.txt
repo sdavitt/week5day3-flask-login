@@ -35,3 +35,6 @@ Here are the steps I've taken so far:
 
 # Set DATABASE_URL in .env file and link in config
 # initialize, migrate, and upgrade our database to match our models
+    # flask db init
+    # flask db migrate
+    # flask db upgrade
