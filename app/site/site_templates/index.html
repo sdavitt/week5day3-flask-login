@@ -4,11 +4,12 @@
 
 
 {% block content %}
-<h1>Hello, Flask and Foxes-65!</h1>
-
+<div class="container">
+    <div class="row">
+        <div class="col-10 col-md-6">
+            <h1>Would you like to add an Animal to your collection?</h1>
+            {% include 'form.html' %}
+        </div>
+    </div>
+</div>
 {% endblock content %}
-
-
-{% block example %}
-<h1> This sentence is in the example code block!!!</h1>
-{% endblock example %}

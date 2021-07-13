@@ -1,0 +1,28 @@
+<!-- HTML structure of this form as suggested by WTForms -->
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        <fieldset id="name-field">
+            {{ form.name.label }}
+            {{ form.name(class = "form-control", placeholder = "Animal name...")}}
+        </fieldset>
+        <fieldset id="weight-field">
+            {{ form.weight.label }}
+            {{ form.weight(class = "form-control", placeholder = "Weight...")}}
+        </fieldset>
+        <fieldset id="height-field">
+            {{ form.height.label }}
+            {{ form.height(class = "form-control", placeholder = "Height...")}}
+        </fieldset>
+        <fieldset id="climate-field">
+            {{ form.climate.label }}
+            {{ form.climate(class = "form-control", placeholder = "What climate?")}}
+        </fieldset>
+        <fieldset id="region-field">
+            {{ form.region.label }}
+            {{ form.region(class = "form-control", placeholder = "What region?")}}
+        </fieldset>
+        <!--Submit Button Area-->
+        {{ form.submit_button(class = "btn btn-primary btn-block") }}
+    </div>
+</form>
