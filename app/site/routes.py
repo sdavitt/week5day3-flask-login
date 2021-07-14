@@ -1,6 +1,8 @@
 # import whatever modules/functions/classes that we need for our code to work as intended
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 
+from flask_login import current_user, login_required
+
 # import any database model we're using
 from app.models import Animal, db
 
@@ -22,6 +24,10 @@ site = Blueprint('site', __name__, template_folder='site_templates')
 # our homepage route! Hello routing :)
 @site.route('/', methods=['GET', 'POST'])
 def home():
+    if current_user.is_authenticated:
+        username = current_user.username
+    else:
+        username = "GUEST"
     form = newAnimalForm()
     try:
         if request.method == 'POST' and form.validate_on_submit():
@@ -47,10 +53,21 @@ def home():
     except:
         flash(f'Invalid form input, try again.')
         return redirect(url_for('site.home'))
-    return render_template('index.html', form=form)
+    return render_template('index.html', form=form, user=username)
 
 
 # make second route for the profile page
 @site.route('/profile')
+@login_required
 def profile():
     return render_template('profile.html')
+
+@site.route('/animals')
+def displayAnimals():
+    a = Animal.query.all()
+    # print('all animals: ', animals)
+    # animal = Animal.query.filter_by(region = 'Tundra').first()
+    # print('Tundra animals: ', animal)
+    # try_me = Animal.query.get_or_404(6)
+    # print("get or 404: ", try_me)
+    return render_template('display_animals.html', animals=a)

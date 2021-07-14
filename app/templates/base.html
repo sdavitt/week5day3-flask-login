@@ -38,15 +38,18 @@
                 </a>
                 <!--User Auth Check for SignIn/SignUp Nav Buttons-->
 
-                <a href="">
-                    <li>Log Out</li>
-                </a>
 
+                <a href="{{ url_for('auth.signout') }}">
+                    <li>Sign Out</li>
+                </a>
                 <a href="{{ url_for('auth.signin') }}">
                     <li>Sign In</li>
                 </a>
                 <a href="{{ url_for('auth.signup') }}">
                     <li>Sign Up Free</li>
+                </a>
+                <a href="{{ url_for('site.displayAnimals') }}">
+                    <li>List of Animals</li>
                 </a>
 
             </ul>
