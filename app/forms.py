@@ -24,3 +24,10 @@ class loginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit_button = SubmitField()
+
+class updateAnimalForm(FlaskForm):
+    weight = IntegerField('Weight')
+    height = IntegerField('Height')
+    climate = StringField('Climate')
+    region = StringField('Region')
+    submit_button = SubmitField()

@@ -15,7 +15,8 @@
   <div class="container">
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-            <h5 class="card-title">{{ animal.name }}</h5>
+                <a href="{{ url_for('site.individualAnimal', animal_id=animal.id) }}"><h5 class="card-title">{{ animal.name }}</h5></a>
+            
             <p class="card-text">This {{ animal.name }} weighs {{ animal.weight }} and stand {{ animal.height }} ft tall.</p>
             </div>
         </div>

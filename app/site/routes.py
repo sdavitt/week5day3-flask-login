@@ -7,7 +7,7 @@ from flask_login import current_user, login_required
 from app.models import Animal, db
 
 # import our form that we're using
-from app.forms import newAnimalForm
+from app.forms import newAnimalForm, updateAnimalForm
 
 """
 Note that in the below code, 
@@ -71,3 +71,43 @@ def displayAnimals():
     # try_me = Animal.query.get_or_404(6)
     # print("get or 404: ", try_me)
     return render_template('display_animals.html', animals=a)
+
+@site.route('/animals/<int:animal_id>')
+def individualAnimal(animal_id):
+    a = Animal.query.get_or_404(animal_id)
+    return render_template('individual_animal.html', animal = a)
+
+
+@site.route('/animals/update/<int:animal_id>', methods=["GET","POST"])
+def updateIndividualAnimal(animal_id):
+    a = Animal.query.get_or_404(animal_id)
+    updateAnimal = updateAnimalForm()
+    if request.method =="POST" and updateAnimal.validate_on_submit():
+        weightdata = updateAnimal.weight.data
+        heightdata = updateAnimal.height.data
+        climatedata = updateAnimal.climate.data
+        regiondata = updateAnimal.region.data
+
+        a.weight = weightdata
+        a.height = heightdata
+        a.climate = climatedata
+        a.region = regiondata
+
+        db.session.commit()
+
+        flash(f"{a.name} has been updated!")
+        return redirect(url_for('site.individualAnimal', animal_id=animal_id))
+      
+    return render_template('update_individual_animal.html', animal = a, form=updateAnimal)
+
+@site.route('/animals/delete/<int:animal_id>')
+def deleteIndividualAnimal(animal_id):
+    a = Animal.query.get_or_404(animal_id)
+
+    db.session.delete(a)
+    db.session.commit()
+
+    flash(f"Successfully deleted {a.name}")
+    return redirect(url_for('site.displayAnimals'))
+
+
