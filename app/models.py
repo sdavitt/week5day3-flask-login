@@ -23,13 +23,21 @@ class Animal(db.Model):
     # kind of similar to our CREATE TABLE queries -> we're telling the database what columns/attributes go into this table/model
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False, unique=True)
-    weight = db.Column(db.Integer, nullable=True, default='Unknown')
-    height = db.Column(db.Integer, nullable=True, default='Unknown')
-    climate = db.Column(db.String(50), nullable=True, default='all climates')
-    region = db.Column(db.String(50))
+    price = db.Column(db.Float(50), nullable=False)
+    desc = db.Column(db.String(250), nullable=False)
+    img = db.Column(db.String(250), nullable=False)
 
     def __repr__(self):
         return f"<Animal: {self.name}>"
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'price': self.price,
+            'desc': self.desc,
+            'img': self.img
+        }
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)

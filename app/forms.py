@@ -1,16 +1,15 @@
 # imports for the packages and/or modules we need
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, IntegerField, PasswordField
+from wtforms import StringField, SubmitField, IntegerField, PasswordField, DecimalField
 from wtforms.validators import DataRequired, Email, EqualTo
 
 
 class newAnimalForm(FlaskForm):
     # name, weight, height, climate, region
     name = StringField('Name', validators=[DataRequired()])
-    weight = IntegerField('Weight')
-    height = IntegerField('Height')
-    climate = StringField('Climate')
-    region = StringField('Region')
+    price = DecimalField('Price', validators=[DataRequired()])
+    desc = StringField('Description', validators=[DataRequired()])
+    img = StringField('Image URL', validators=[DataRequired()])
     submit_button = SubmitField()
 
 class newUserForm(FlaskForm):
@@ -26,8 +25,8 @@ class loginForm(FlaskForm):
     submit_button = SubmitField()
 
 class updateAnimalForm(FlaskForm):
-    weight = IntegerField('Weight')
-    height = IntegerField('Height')
-    climate = StringField('Climate')
-    region = StringField('Region')
-    submit_button = SubmitField()
+    name = StringField('Name')
+    price = StringField('Price')
+    desc = StringField('Description')
+    img = StringField('Image URL')
+    update = SubmitField()

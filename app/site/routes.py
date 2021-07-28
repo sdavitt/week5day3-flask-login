@@ -1,5 +1,5 @@
 # import whatever modules/functions/classes that we need for our code to work as intended
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
 
 from flask_login import current_user, login_required
 
@@ -32,15 +32,14 @@ def home():
     try:
         if request.method == 'POST' and form.validate_on_submit():
             namedata = form.name.data
-            weightdata = form.weight.data
-            heightdata = form.height.data
-            climatedata = form.climate.data
-            regiondata = form.region.data
+            pricedata = form.price.data
+            descdata = form.desc.data
+            imgdata = form.img.data
             
-            print(namedata, regiondata)
+            print(namedata, descdata)
 
             # create an animal object in my database based off the form data
-            new_animal = Animal(name=namedata, weight=weightdata, height=heightdata, climate=climatedata, region=regiondata)
+            new_animal = Animal(name=namedata, price=pricedata, desc=descdata, img=imgdata)
 
             #add the newly created animal to our database - always a two step process
             db.session.add(new_animal)
@@ -79,19 +78,36 @@ def individualAnimal(animal_id):
 
 
 @site.route('/animals/update/<int:animal_id>', methods=["GET","POST"])
+@login_required
 def updateIndividualAnimal(animal_id):
     a = Animal.query.get_or_404(animal_id)
     updateAnimal = updateAnimalForm()
     if request.method =="POST" and updateAnimal.validate_on_submit():
-        weightdata = updateAnimal.weight.data
-        heightdata = updateAnimal.height.data
-        climatedata = updateAnimal.climate.data
-        regiondata = updateAnimal.region.data
+        namedata = updateAnimal.name.data
+        descdata = updateAnimal.desc.data
+        imgdata = updateAnimal.img.data
 
-        a.weight = weightdata
-        a.height = heightdata
-        a.climate = climatedata
-        a.region = regiondata
+        # deal with price being a string and needing conversion
+        if updateAnimal.price.data:
+            try:
+                a.price = float(updateAnimal.price.data)
+                print('changed price')
+            except:
+                flash(f"Invalid Price, couldn't update.")
+                return redirect(url_for('site.individualAnimal', animal_id=animal_id))
+        print('got past form data')
+        # fixed update to actually update the animal if data present from the form
+        if namedata:
+            a.name = namedata
+            print('changed name')
+        if descdata:
+            a.desc = descdata
+            print('changed desc')
+        if imgdata:
+            a.img = imgdata
+            print('changed img')
+
+        print(namedata, descdata, updateAnimal.price.data)
 
         db.session.commit()
 
@@ -111,3 +127,22 @@ def deleteIndividualAnimal(animal_id):
     return redirect(url_for('site.displayAnimals'))
 
 
+
+# Add a Public API endpoint that anyone can access to get my product information
+# Note: be careful about using public API endpoints -> we can talk about authentication required api endpoints another day
+# a public api endpoint can lead to unintentionally large cloud hosting costs if not set up properly
+# this is a simplified and improper implementation below
+@site.route('/products', methods=['GET'])
+def get_products():
+    """
+    [GET] /products returns jsonified data on the animals within our database
+    """
+    # query database to get the animals
+    animals = Animal.query.all()
+    print(animals)
+    # turn the list of animal objects into a list of animal dictionaries
+    animals = [animal.to_dict() for animal in animals]
+    # jsonify that list
+    animals = jsonify(animals)
+    # return that list
+    return animals

@@ -6,21 +6,17 @@
             {{ form.name.label }}
             {{ form.name(class = "form-control", placeholder = "Animal name...")}}
         </fieldset>
-        <fieldset id="weight-field">
-            {{ form.weight.label }}
-            {{ form.weight(class = "form-control", placeholder = "Weight...")}}
+        <fieldset id="price-field">
+            {{ form.price.label }}
+            {{ form.price(class = "form-control", placeholder = "Price...")}}
         </fieldset>
-        <fieldset id="height-field">
-            {{ form.height.label }}
-            {{ form.height(class = "form-control", placeholder = "Height...")}}
+        <fieldset id="desc-field">
+            {{ form.desc.label }}
+            {{ form.desc(class = "form-control", placeholder = "Description...")}}
         </fieldset>
-        <fieldset id="climate-field">
-            {{ form.climate.label }}
-            {{ form.climate(class = "form-control", placeholder = "What climate?")}}
-        </fieldset>
-        <fieldset id="region-field">
-            {{ form.region.label }}
-            {{ form.region(class = "form-control", placeholder = "What region?")}}
+        <fieldset id="img-field">
+            {{ form.img.label }}
+            {{ form.img(class = "form-control", placeholder = "Image URL...")}}
         </fieldset>
         <!--Submit Button Area-->
         {{ form.submit_button(class = "btn btn-primary btn-block") }}
