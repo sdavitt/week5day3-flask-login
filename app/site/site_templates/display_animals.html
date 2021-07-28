@@ -16,7 +16,7 @@
         <div class="card" style="width: 18rem;">
             <div class="card-body">
             <a href="{{ url_for('site.individualAnimal', animal_id=animal.id) }}"><h5 class="card-title">{{ animal.name }}</h5></a>
-            <p class="card-text">This {{ animal.name }} costs ${{ animal.price }}. {{ animal.desc }}</p>
+            <p class="card-text">This {{ animal.name }} costs ${{ '{:,.2f}'.format(animal.price) }}. {{ animal.desc }}</p>
             </div>
         </div>
   </div>
