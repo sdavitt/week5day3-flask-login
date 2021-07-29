@@ -18,7 +18,7 @@ from flask_cors import CORS
 
 # define our application as instance of the Flask object
 app = Flask(__name__)
-cors = CORS(app)
+cors = CORS(app, origins=['http://localhost:3000'])
 
 # register our blueprints
 app.register_blueprint(site)
